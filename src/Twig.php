@@ -38,6 +38,7 @@ class Twig extends BaseTask {
 
     if (isset($this->destination)) {
       file_put_contents($this->destination, $twig->render($this->template, $this->context));
+      $this->printTaskInfo('Writting template "' . $this->template . '" to file "' . $this->destination . '"');
     }
     else {
       $this->printTaskInfo($twig->render($this->template, $this->context));
