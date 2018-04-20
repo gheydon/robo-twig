@@ -66,6 +66,7 @@ class Twig extends BaseTask {
     // reset the template array with the new variables.
     if (is_array($id)) {
       $this->templatesArray = $id;
+      return;
     }
     $this->templatesArray[$id] = $content;
   }
@@ -81,6 +82,7 @@ class Twig extends BaseTask {
   public function setContext($id, $value = NULL) {
     if (is_array($id)) {
       $this->context = $id;
+      return;
     }
 
     $this->context[$id] = $value;
