@@ -1,0 +1,29 @@
+{
+    "name": "heydon/robo-twig",
+    "description": "Allow the processing of templates via robo",
+    "type": "robo-tasks",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Gordon Heydon",
+            "email": "gordon@heydon.com.au"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^5.5.9|>=7.0.8",
+        "consolidation/robo": "^1.2",
+        "twig/twig": "^1.35.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Heydon\\Robo\\Task\\": "src"
+        }
+    },
+    "config": {
+        "bin-dir": "bin/",
+        "process-timeout": 3600,
+        "discard-changes": true
+    }
+}
