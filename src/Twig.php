@@ -7,6 +7,7 @@ use Robo\Exception\TaskException;
 use Robo\Exception\TaskExitException;
 use Robo\Task\BaseTask;
 use Twig_Environment;
+use Twig_Extension;
 use Twig_Loader_Array;
 use Twig_Loader_Filesystem;
 
@@ -19,6 +20,7 @@ class Twig extends BaseTask {
   private $template;
   private $context = [];
   private $destination;
+  private $extensions = [];
 
   /**
    * @return \Robo\Result|void
@@ -35,6 +37,12 @@ class Twig extends BaseTask {
     }
 
     $twig = new Twig_Environment($loader);
+
+    if (!empty($this->extensions)) {
+      foreach ($this->extensions as $extension) {
+        $twig->addExtension($extension);
+      }
+    }
 
     if (isset($this->destination)) {
       file_put_contents($this->destination, $twig->render($this->template, $this->context));
@@ -93,6 +101,13 @@ class Twig extends BaseTask {
    */
   public function setDestination($destination) {
     $this->destination = $destination;
+  }
+
+  /**
+   * @param Twig_Extension $extensions
+   */
+  public function addExtension(Twig_Extension $extension) {
+    $this->extensions[] = $extension;
   }
 
 }
