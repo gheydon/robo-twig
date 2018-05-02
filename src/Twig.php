@@ -45,11 +45,11 @@ class Twig extends BaseTask {
 
     foreach ($this->processes as $process) {
       if (!empty($process['destination'])) {
-        file_put_contents($process['destination'], $twig->render($process['template'], $this->context));
+        file_put_contents($process['destination'], $twig->render($process['template'], $process['variables'] + $this->context));
         $this->printTaskInfo('Writting template "' . $process['template'] . '" to file "' . $process['destination'] . '"');
       }
       else {
-        $this->printTaskInfo($twig->render($process['template'], $this->context));
+        $this->printTaskInfo($twig->render($process['template'], $process['variables'] + $this->context));
       }
     }
   }
@@ -96,11 +96,13 @@ class Twig extends BaseTask {
   /**
    * @param $template
    * @param $destination
+   * @param array $variables
    */
-  public function applyTemplate($template, $destination) {
+  public function applyTemplate($template, $destination, array $variables = []) {
     $this->processes[] = [
       'template' => $template,
       'destination' => $destination,
+      'variables' => $variables,
     ];
   }
 

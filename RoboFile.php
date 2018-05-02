@@ -17,7 +17,7 @@ class RoboFile extends \Robo\Tasks
     $this->taskTwig()
       ->setTemplatesDirectory('./templates')
       ->setContext('name', 'Fabien')
-      ->applyTemplate('index.twig', 'index.txt')
+      ->applyTemplate('index.twig', 'index.txt', ['name' => 'Gordon'])
       ->run();
   }
 }
