@@ -9,7 +9,7 @@ class RoboFile extends \Robo\Tasks
     $this->taskTwig()
       ->setTemplatesArray('index', 'Hello {{ name }}!')
       ->setContext('name', 'Fabien')
-      ->setTemplate('index')
+      ->applyTemplate('index', '')
       ->run();
   }
 
@@ -17,8 +17,7 @@ class RoboFile extends \Robo\Tasks
     $this->taskTwig()
       ->setTemplatesDirectory('./templates')
       ->setContext('name', 'Fabien')
-      ->setTemplate('index.twig')
-      ->setDestination('index.txt')
+      ->applyTemplate('index.twig', 'index.txt')
       ->run();
   }
 }

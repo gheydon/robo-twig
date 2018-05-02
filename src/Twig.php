@@ -17,9 +17,8 @@ class Twig extends BaseTask {
 
   private $templatesDirectory;
   private $templatesArray = [];
-  private $template;
   private $context = [];
-  private $destination;
+  private $processes = [];
   private $extensions = [];
 
   /**
@@ -44,12 +43,14 @@ class Twig extends BaseTask {
       }
     }
 
-    if (isset($this->destination)) {
-      file_put_contents($this->destination, $twig->render($this->template, $this->context));
-      $this->printTaskInfo('Writting template "' . $this->template . '" to file "' . $this->destination . '"');
-    }
-    else {
-      $this->printTaskInfo($twig->render($this->template, $this->context));
+    foreach ($this->processes as $process) {
+      if (!empty($process['destination'])) {
+        file_put_contents($process['destination'], $twig->render($process['template'], $this->context));
+        $this->printTaskInfo('Writting template "' . $process['template'] . '" to file "' . $process['destination'] . '"');
+      }
+      else {
+        $this->printTaskInfo($twig->render($process['template'], $this->context));
+      }
     }
   }
 
@@ -80,13 +81,9 @@ class Twig extends BaseTask {
   }
 
   /**
-   * @param mixed $template
+   * @param $id
+   * @param null $value
    */
-  public function setTemplate($template) {
-    $this->template = $template;
-  }
-
-
   public function setContext($id, $value = NULL) {
     if (is_array($id)) {
       $this->context = $id;
@@ -97,10 +94,14 @@ class Twig extends BaseTask {
   }
 
   /**
-   * @param mixed $destination
+   * @param $template
+   * @param $destination
    */
-  public function setDestination($destination) {
-    $this->destination = $destination;
+  public function applyTemplate($template, $destination) {
+    $this->processes[] = [
+      'template' => $template,
+      'destination' => $destination,
+    ];
   }
 
   /**

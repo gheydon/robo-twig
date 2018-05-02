@@ -9,7 +9,7 @@ Use twig as a templating system system for robo
     $this->taskTwig()
       ->setTemplatesArray('index', 'Hello {{ name }}!')
       ->setContext('name', 'Fabien')
-      ->setTemplate('index')
+      ->applyTemplate('index', '')
       ->run();
 ```
 
@@ -19,7 +19,7 @@ Use twig as a templating system system for robo
     $this->taskTwig()
       ->setTemplatesDirectory('./templates')
       ->setContext('name', 'Fabien')
-      ->setTemplate('index.twig')
-      ->setDestination('index.txt')
+      ->applyTemplate('index.twig', 'index.txt')
+      ->applyTemplate('index.html.twig', 'index.html')
       ->run();
 ```
