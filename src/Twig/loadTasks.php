@@ -8,6 +8,8 @@ trait loadTasks {
 
   /**
    * Load Twig
+   *
+   * @return Twig
    */
   protected function taskTwig() {
     return $this->task(Twig::class);

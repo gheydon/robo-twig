@@ -22,6 +22,7 @@ class Twig extends BaseTask {
   private $extensions = [];
 
   /**
+   * @throws \Robo\Exception\TaskExitException
    * @return \Robo\Result|void
    */
   public function run() {
@@ -56,6 +57,8 @@ class Twig extends BaseTask {
 
   /**
    * @param string $templates_dir
+   * @throws \Robo\Exception\TaskException
+   * @return $this
    */
   public function setTemplatesDirectory($templates_dir) {
     if (!empty($this->templatesArray)) {
@@ -66,6 +69,8 @@ class Twig extends BaseTask {
 
   /**
    * @param mixed $templatesArray
+   * @throws \Robo\Exception\TaskException
+   * @return $this
    */
   public function setTemplatesArray($id, $content = NULL) {
     if (isset($this->templatesDirectory)) {
@@ -75,28 +80,34 @@ class Twig extends BaseTask {
     // reset the template array with the new variables.
     if (is_array($id)) {
       $this->templatesArray = $id;
-      return;
+      return $this;
     }
     $this->templatesArray[$id] = $content;
+
+    return $this;
   }
 
   /**
    * @param $id
    * @param null $value
+   * @return $this
    */
   public function setContext($id, $value = NULL) {
     if (is_array($id)) {
       $this->context = $id;
-      return;
+      return $this;
     }
 
     $this->context[$id] = $value;
+
+    return $this;
   }
 
   /**
    * @param $template
    * @param $destination
    * @param array $variables
+   * @return $this
    */
   public function applyTemplate($template, $destination, array $variables = []) {
     $this->processes[] = [
@@ -104,13 +115,18 @@ class Twig extends BaseTask {
       'destination' => $destination,
       'variables' => $variables,
     ];
+
+    return $this;
   }
 
   /**
    * @param Twig_Extension $extensions
+   * @return $this
    */
   public function addExtension(Twig_Extension $extension) {
     $this->extensions[] = $extension;
+
+    return $this;
   }
 
 }
