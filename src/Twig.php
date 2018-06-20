@@ -15,11 +15,11 @@ class Twig extends BaseTask {
 
   use TaskIO;
 
-  private $templatesDirectory;
-  private $templatesArray = [];
-  private $context = [];
-  private $processes = [];
-  private $extensions = [];
+  protected $templatesDirectory;
+  protected $templatesArray = [];
+  protected $context = [];
+  protected $processes = [];
+  protected $extensions = [];
 
   /**
    * @throws \Robo\Exception\TaskExitException
