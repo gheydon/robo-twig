@@ -55,7 +55,7 @@ class Twig extends BaseTask {
           }
         }
         file_put_contents($destination, $twig->render($process['template'], $process['variables'] + $this->context));
-        $this->printTaskInfo('Writting template "' . $process['template'] . '" to file "' . $destination . '"');
+        $this->printTaskInfo('Writing template "' . $process['template'] . '" to file "' . $destination . '"');
       }
       else {
         $this->printTaskInfo($twig->render($process['template'], $process['variables'] + $this->context));
